@@ -41,10 +41,13 @@ Scrumdashboard supports the following:
 
 To install the Scrumdashboard please follow the steps outlined below.
 
-1. Copy the "redmine_scrumdashboard" folder to "\vendor\plugins" 
- (Example:  c:\ruby\redmine-0.8.0\vendor\plugins)
+1: Copy the files to "\vendor\plugins\redmine_scrumdashboard" 
+ (Example:  c:\ruby\redmine-0.8.0\vendor\plugins\redmine_scrumdashboard)
 
-2. Execute 'rake db:migrate_plugins' from the redmine installation path
+NOTE: The folder containing the plugin need to be called "redmine_scrumdashboard" for 
+the plugin to work.
+
+2: Execute 'rake db:migrate_plugins' from the redmine installation path
  (Example:  c:\ruby\redmine-0-8> rake db:migrate_plugins ) 
 
 NOTE: A restart of the web server/application might be required for the 
