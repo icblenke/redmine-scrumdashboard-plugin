@@ -88,18 +88,18 @@ Q: How do I find the Dashboard after it has been installed?
 
 Q: How can I change and customize the way the Dashboard looks? (Admin)
  By clicking "Settings" located in the upper right corner, you can choose the colors used on the issues 
-displayed on the Dashboard
+ displayed on the Dashboard
 
 Q: How do I choose which trackers to be displayed in the Dashboard? (Admin)
  On the "Settings" page you can configure which "Trackers on this Dashboard" to display.
 
 Q: What is a "Maintracker"?
  A maintracker (For example "User Story") is used by the Dashboard to group issues together. All issues related 
-to a maintracker issue will be shown in the same row in the Dashboard.
+ to a maintracker issue will be shown in the same row in the Dashboard.
 
 Q: How do I relate issues to the correct maintracker?
  When you view an issue you have an option to "Add" a related issue, here you can pick an issue (set as 
-maintracker) you wish to relate to, for example a User Story.
+ maintracker) you wish to relate to, for example a User Story.
 
 Q: How do I select which Maintracker(s) my project uses? (Admin)
  On the "Settings" page you can set one or more trackers as a "Maintracker".
@@ -109,11 +109,11 @@ Q: How do I select which statuses to be displayed in Dashboard? (Admin)
 
 Q: How does the Dashboard use "versions"?
  On the Dashboard, we group the various issues/tasks/trackers together under a version you have configured. In 
-a project using the Scrum process, this will normally be a sprint. 
+ a project using the Scrum process, this will normally be a sprint. 
 
 Q: How do I select which version to be displayed on the Dashboard? 
  Located top-left on the Dashboard you can "Choose version" through the dropdown box. The version added last is 
-selected by default.
+ selected by default.
 
 Q: How do I display issues assigned to me?
  In the top left of the Dashboard, you have a Filter dropdown box. Here you can choose between "all" or "mine".
