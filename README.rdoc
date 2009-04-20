@@ -25,6 +25,11 @@ A typical scenario involves a number of versions, that can be named such as
 You can find out more about Redmine here: http://www.redmine.org
 
 
+== License
+
+This project is licensed under GNU General Public License version 2.
+
+
 == Features
 
 Scrumdashboard supports the following: 
