@@ -22,7 +22,7 @@ A typical scenario involves a number of versions, that can be named such as
 "Bug". It will display all the trackers that are linked to a specific version
 (sprint) in the application. 
 
-You can find out more about Redmine here: http://www.redmine.org/
+You can find out more about Redmine here: http://www.redmine.org
 
 
 == Features
@@ -84,43 +84,42 @@ as your maintracker in yellow, "Bugs" in Red, etc.
 == FAQ
 
 Q: How do I find the Dashboard after it has been installed?
-A: The Dashboard will be available from the project menu after the module has been enabled in Redmine project settings.
+ The Dashboard will be available from the project menu after the module has been enabled in Redmine project settings.
 
 Q: How can I change and customize the way the Dashboard looks? (Admin)
-A: By clicking "Settings" located in the upper right corner, you can choose the colors used on the issues displayed
- : on the Dashboard
+ By clicking "Settings" located in the upper right corner, you can choose the colors used on the issues 
+displayed on the Dashboard
 
 Q: How do I choose which trackers to be displayed in the Dashboard? (Admin)
-A: On the "Settings" page you can configure which "Trackers on this Dashboard" to display.
+ On the "Settings" page you can configure which "Trackers on this Dashboard" to display.
 
 Q: What is a "Maintracker"?
-A: A maintracker (For example "User Story") is used by the Dashboard to group issues together. All issues related to
- : a maintracker issue will be shown in the same row in the Dashboard.
+ A maintracker (For example "User Story") is used by the Dashboard to group issues together. All issues related 
+to a maintracker issue will be shown in the same row in the Dashboard.
 
 Q: How do I relate issues to the correct maintracker?
-A: When you view an issue you have an option to "Add" a related issue, here you can pick an issue (set as maintracker)
- : you wish to relate to, for example a User Story.
+ When you view an issue you have an option to "Add" a related issue, here you can pick an issue (set as 
+maintracker) you wish to relate to, for example a User Story.
 
 Q: How do I select which Maintracker(s) my project uses? (Admin)
-A: On the "Settings" page you can set one or more trackers as a "Maintracker".
+ On the "Settings" page you can set one or more trackers as a "Maintracker".
 
 Q: How do I select which statuses to be displayed in Dashboard? (Admin)
-A: On the "Settings" page you have a "Status" tab, here you can select which statuses are displayed.
+ On the "Settings" page you have a "Status" tab, here you can select which statuses are displayed.
 
 Q: How does the Dashboard use "versions"?
-A: On the Dashboard, we group the various issues/tasks/trackers together under a version you have configured.
- : In a project using the Scrum process, this will normally be a sprint. 
+ On the Dashboard, we group the various issues/tasks/trackers together under a version you have configured. In 
+a project using the Scrum process, this will normally be a sprint. 
 
 Q: How do I select which version to be displayed on the Dashboard? 
-A: Located top-left on the Dashboard you can "Choose version" through the dropdown box. The version added last is
- : selected by default.
+ Located top-left on the Dashboard you can "Choose version" through the dropdown box. The version added last is 
+selected by default.
 
 Q: How do I display issues assigned to me?
-A: In the top left of the Dashboard, you have a Filter dropdown box. Here you can choose between "all" or "mine".
+ In the top left of the Dashboard, you have a Filter dropdown box. Here you can choose between "all" or "mine".
 
 Q: How do I add language support?
-A: In the "redmine_scrumdashboard\lang" folder all the .yml language files are located. 
- : Make a copy of an existing file and translate the options. 
+ In the "redmine_scrumdashboard\lang" folder all the .yml language files are located. Make a copy of an existing file and translate the options. 
 
 
 == Ideas for future versions
@@ -140,39 +139,6 @@ One idea here is to use a similar design to Google Calendar.
 Add support for more languages
 
 
-
-== Database
-
-The plugin adds a couple of new tables to the database:
-
-
-	trackers			projects		      statuses
-	    |				   |				 |
-	    |			   +--------------+			 |
-	    |			   |  dashboards  |			 |
-	    |			   +--------------+			 |
-	    |                      | *id          |			 |
-            |                      | #project_id  |			 |
-	    |			   +--------------+			 |
-	    |			     |          |                        |
-            |        +---------------+          +------------+           |
-	    |        |                                       |           |
-+----------------------+				+----------------------+
-|  dashboard_trackers  |				|  dashboard_statuses  |
-+----------------------+				+----------------------+
-| *id                  |				| *id                  |
-| #dashboard_id        |				| #dashboard_id        |
-| #tracker_id          |				| #status_id           |
-|  maintracker         |				+----------------------+
-|  bgcolor             |
-|  textcolor           |
-+----------------------+
-
-* = primary key
-# = foreign key
-
-
-
 == Development
 
 "Scrumdashboard" was a project run and developed by students from the University
@@ -183,9 +149,9 @@ It was developed for "Redmine 0.8.0.stable (MySQL)". It has not been tested for 
 other version of Redmine.
 
 The team consisted of :
-Terje Alexander Barth - Project Manager
-Marius Olsen - Quality Manager
-Einar Myre - Lead Developer
-Mats Klepsland - Lead Developer
+- Terje Alexander Barth - Project Manager
+- Marius Olsen - Quality Manager
+- Einar Myre - Lead Developer
+- Mats Klepsland - Lead Developer
 
 The team can be reached at scrumdashboard@googlegroups.com.
