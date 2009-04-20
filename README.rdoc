@@ -42,10 +42,10 @@ Scrumdashboard supports the following:
 To install the Scrumdashboard please follow the steps outlined below.
 
 1. Copy the "redmine_scrumdashboard" folder to "\vendor\plugins" 
-(Example:  c:\ruby\redmine-0.8.0\vendor\plugins)
+ (Example:  c:\ruby\redmine-0.8.0\vendor\plugins)
 
 2. Execute 'rake db:migrate_plugins' from the redmine installation path
-(Example:  c:\ruby\redmine-0-8> rake db:migrate_plugins ) 
+ (Example:  c:\ruby\redmine-0-8> rake db:migrate_plugins ) 
 
 NOTE: A restart of the web server/application might be required for the 
 plugin to be detected by redmine.
@@ -119,7 +119,8 @@ Q: How do I display issues assigned to me?
  In the top left of the Dashboard, you have a Filter dropdown box. Here you can choose between "all" or "mine".
 
 Q: How do I add language support?
- In the "redmine_scrumdashboard\lang" folder all the .yml language files are located. Make a copy of an existing file and translate the options. 
+ In the "redmine_scrumdashboard\lang" folder all the .yml language files are located. Make a copy of an 
+ existing file and translate the options. 
 
 
 == Ideas for future versions
