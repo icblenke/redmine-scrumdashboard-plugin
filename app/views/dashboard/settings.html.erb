@@ -1,0 +1,35 @@
+<div style='float: right'>
+  <% if !@version.nil? %>
+    <%= link_to l(:back_to_dashboard), {:action => "index", :id => @project.identifier, :version_id => @version.id},
+      :class => 'icon icon-cancel' -%>
+  <% else %>
+    <%= link_to l(:back_to_dashboard), {:action => "index", :id => @project.identifier},
+      :class => 'icon icon-cancel' -%>
+  <% end %>
+</div>
+
+<h2><%= l(:label_settings) %></h2>
+
+<% selected_tab = params[:tab] ? params[:tab].to_s : administration_settings_tabs.first[:name] %>
+
+<% if User.current.allowed_to?(:edit_dashboard, @project, :global => true) %>
+  <div class="tabs">
+  <ul>
+  <% administration_settings_tabs.each do |tab| -%>
+    <li><%= link_to l(tab[:label]), { :tab => tab[:name] },
+                                      :id => "tab-#{tab[:name]}",
+                                      :class => (tab[:name] != selected_tab ? nil : 'selected'),
+                                      :onclick => "showTab('#{tab[:name]}'); this.blur(); return false;" %></li>
+  <% end -%>
+  </ul>
+  </div>
+  
+  <% administration_settings_tabs.each do |tab| -%>
+    <%= content_tag('div', render(:partial => tab[:partial]), 
+                                      :id => "tab-content-#{tab[:name]}",
+                                      :style => (tab[:name] != selected_tab ? 'display:none' : nil),
+                                      :class => 'tab-content') %>
+  <% end -%>
+<% else %>
+  <%= l(:dashboard_settings_no_permission) -%>
+<% end %>

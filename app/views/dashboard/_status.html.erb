@@ -1,0 +1,23 @@
+<% if User.current.allowed_to?(:edit_dashboard, @project, :global => true) %>
+
+  <% form_tag ({:action => 'update_settings', :id => @dashboard, :version => @version.id}, :id => 'status_form') do %>
+    <div class='box tabular settings'>
+      <b><%= l(:label_dashboard_select_statuses) -%></b>
+      <br/><br/>
+      <% @all_statuses.each do |s| %>
+        <% if @project_statuses.include?(s) %>
+          <%= hidden_field_tag('old_ids[]', s.id) -%>
+        <% end %>
+        <%= check_box_tag('new_ids[]', s.id, @project_statuses.include?(s)) -%>
+        <%= s.name -%>
+        <br/><br/>
+      <% end %>
+    </div>
+    <p><%= check_all_links 'status_form' %></p>
+
+    <%= hidden_field_tag('change', 'Status') -%>
+    <%= submit_tag l(:button_save) -%>
+  <% end %>
+<% else %>
+  <%= l(:dashboard_settings_no_permission) -%>
+<% end %>

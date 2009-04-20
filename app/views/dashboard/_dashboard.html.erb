@@ -1,0 +1,26 @@
+<% if @filter != "mine" || @dashboard.issues_in_version_assigned_to(User.current, @version).length > 0 %>
+  <% colLength = 99 / @issuestatuses.length %>
+  <% colLength = colLength >= 16.5 ? 16.5 : colLength %>
+  <p>
+  <%= draw_columns(@issuestatuses, @sort, @reverse) %>
+
+  <% col = 1 %>
+  <% @swimlines.each do |swimline| %>
+    <% if @filter != "mine" || swimline.issues_assigned_to(User.current).length > 0 %>
+      <% col = col == 0 ? 1 : 0 %>
+      <% draw_frame(swimline.main_issue) do %>
+        <% i = 0 %>
+        <% swimline.columns.each do |c| %>
+          <% last = true unless i != swimline.columns.length - 1 %>
+          <% i += 1 %>
+          <%= draw_content(c, col, colLength, swimline.height(@filter) * 55, @dashboard.maintrackers, last, @filter) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+  </p>
+  <%= add_observer %>
+
+<% else %>
+  <p class="nodata"><%= l(:label_roadmap_no_issues) %></p>
+<% end %>

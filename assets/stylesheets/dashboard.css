@@ -1,0 +1,69 @@
+/* Dashboard */
+div.header
+{
+    float: left;
+    border-bottom: 1px solid #999;
+    font-weight: bold;
+    text-align: center;
+}
+div.frame
+{
+    width: 100%;
+}
+div.column
+{
+    float: left;
+}
+div.db_issue
+{
+    margin-top: 4px;
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 44%;
+    height: 45px;
+    border: 1px solid #999;
+    float: left;
+    overflow: hidden;
+}
+
+#tooltip {
+    padding: 3px;
+    background-color: #ffffff;
+    border: 1px solid #bbb;
+    font-size: small;
+    min-width: 175px;
+    max-width: 350px;
+}
+
+
+/* Colors of alternate swimlines. If colors are changed manually,
+   they should also be changed in DashboardController#visualise_workflow:
+   (see app/controllers/dashboard_controller.rb: In the line
+       returncolor = params[:issue].split("-")[3] == "1" ? "#EEE" : "#FFF"
+   #EEE should be changed to the background-color of div.content-1 and
+   #FFF to the background-color of div.content-2. Use #FFF for no background
+   color.) */
+div.content-1
+{
+    background-color: #EEE;
+}
+div.content-2
+{
+}
+/* Swimlines in Internet Explorer */
+div.content-1b
+{
+    border-bottom: 1px dashed;
+}
+div.content-2b
+{
+    border-bottom: 1px dashed;
+}
+
+/* Drag-and-drop */
+div.draggable
+{
+    cursor: move;
+}
+div.hover {
+}

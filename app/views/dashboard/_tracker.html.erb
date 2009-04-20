@@ -1,0 +1,155 @@
+<% if User.current.allowed_to?(:edit_dashboard, @project, :global => true) %>
+
+  <% form_tag({:action => 'update_settings', :id => @dashboard, :version => @version.id}, :id => 'tracker_form') do %>
+    <div class='box tabular settings'>
+    <table>
+    <tr>
+    <th width='250'><%=l(:trackers_in_dashboard)%></th>
+    <th><%=l(:label_dashboard_maintracker)%></th>
+    <th><%=l(:label_dashboard_color_scheme)%></th>
+    <th><%=l(:label_dashboard_background_color)%></th>
+    <th><%=l(:label_dashboard_text_color)%></th>
+    <th></th>
+    </tr>
+    <% @all_trackers.each do |t| %>
+      <% if @project_trackers.include?(t) %>
+        <% tracker = DashboardTracker.find(:first, 
+	                              :conditions => ["dashboard_id = ? AND tracker_id = ?", @dashboard.id, t.id]) %>
+        <%= hidden_field_tag('old_ids[]', t.id) -%>
+      <% end %>
+      <% if @dashboard.maintrackers.include?(t) %>
+        <%= hidden_field_tag('old_tracker_ids[]', t.id) -%>
+      <% end %>
+      <% test_id = 'test['+t.id.to_s+']' %>
+      <% color_id = 'color['+t.id.to_s+']' %>
+      <% bgcolor_id = 'bgcolor['+t.id.to_s+']' %>
+      <% textcolor_id = 'textcolor['+t.id.to_s+']' %>
+      <% disabled = !@project_trackers.include?(t) %>
+      <tr>
+      <td>
+      <%= check_box_tag('new_ids[]', t.id, @project_trackers.include?(t), 
+        :onclick => '
+          if (this.checked) {
+            document.getElementById("'+color_id+'").disabled=false;
+            document.getElementById("'+bgcolor_id+'").disabled=false;
+            document.getElementById("'+textcolor_id+'").disabled=false;
+            document.getElementById("'+test_id+'").style.display="";
+          } else {
+            document.getElementById("'+color_id+'").disabled=true;
+            document.getElementById("'+bgcolor_id+'").disabled=true;
+            document.getElementById("'+textcolor_id+'").disabled=true;
+            document.getElementById("'+test_id+'").style.display="none";
+          }
+          trackers = document.getElementsByName("tracker_ids[]");
+          for (x in trackers) {
+            if (trackers[x].value == this.value) {
+              if (this.checked) {
+                trackers[x].disabled=false;
+              } else {
+                trackers[x].checked=false;
+                trackers[x].disabled=true;
+              }
+            }
+          } ') -%>
+      <%= t.name -%>
+      </td>
+      <td>
+      <%= check_box_tag('tracker_ids[]', t.id, @dashboard.maintrackers.include?(t), :disabled => disabled) -%>
+      </td>
+      <td>
+      <% if !disabled %>
+        <select id='<%= color_id -%>' name='color'>
+      <% else %>
+        <select id='<%= color_id -%>' name='color' disabled='disabled'>
+      <% end %>
+      <option selected='selected' disabled='disabled'>-- <%=l(:label_dashboard_change_colors)%> --</option>
+      <% default_colors.each do |dc| %>
+        <option onclick='document.getElementById("<%= bgcolor_id -%>").value = "<%= dc[:bgcolor] -%>";
+          document.getElementById("<%= textcolor_id -%>").value = "<%= dc[:textcolor] -%>";
+          var test = document.getElementById("<%= test_id -%>");
+          test.style.backgroundColor = "<%= dc[:bgcolor] -%>";
+          test.style.color = "<%= dc[:textcolor] -%>";'>
+          <%= dc[:name] -%>
+        </option>
+      <% end %>
+      </select>
+      </td>
+      <td>
+      <% bgcolor = tracker ? tracker.bgcolor : "" %>
+      <%= text_field_tag(bgcolor_id, bgcolor, :disabled => disabled, 
+                :onblur => 'document.getElementById("'+test_id+'").style.backgroundColor = this.value') -%>
+      </td>
+      <td>
+      <% textcolor = tracker ? tracker.textcolor : "" %>
+      <%= text_field_tag(textcolor_id, textcolor, :disabled => disabled, 
+                :onblur => 'document.getElementById("'+test_id+'").style.color = this.value') -%>
+      </td>
+      <td id='<%= test_id -%>' name='test' style='border: 1px solid #999;background-color:
+                <%= bgcolor -%>;color:<%= textcolor -%>;
+      <% if disabled %>display:none;<% end %>
+      '>
+      <%=l(:field_dashboard_test)%>
+      </td>
+      </tr>
+    <% end %>
+    </table>
+    </div>
+
+    <p>
+    <%= link_to_function(l(:button_check_all), '
+      trackers = document.getElementsByName("new_ids[]");
+      for (x in trackers) {
+        trackers[x].checked = true;
+      }
+      mts = document.getElementsByName("tracker_ids[]");
+      for (x in mts) {
+        if (x < mts.length) {
+          mts[x].disabled=false;
+        }
+      }
+      colors = document.getElementsByName("color");
+      for (x in colors) {
+        colors[x].disabled=false;
+      }
+      inputs = document.getElementsByTagName("input");
+      for (x in inputs) {
+        if (inputs[x].type == "text") {
+          inputs[x].disabled=false;
+        }
+      }
+      tests = document.getElementsByName("test");
+      for (x in tests) {
+        tests[x].style.display="";
+      }
+    ') -%>
+    <%= link_to_function(l(:button_uncheck_all), '
+      checkAll("tracker_form", false);
+      mts = document.getElementsByName("tracker_ids[]");
+      for (x in mts) {
+        if (x < mts.length) {
+          mts[x].disabled=true;
+        }
+      }
+      colors = document.getElementsByName("color");
+      for (x in colors) {
+        colors[x].disabled=true;
+      }
+      inputs = document.getElementsByTagName("input");
+      for (x in inputs) {
+        if (inputs[x].type == "text") {
+          inputs[x].disabled=true;
+        }
+      }
+      tests = document.getElementsByName("test");
+      for (x in tests) {
+        tests[x].style.display="none"
+      }
+    ') -%>
+    </p>
+
+    <%= hidden_field_tag('change', 'Tracker') -%>
+    <%= submit_tag l(:button_save) -%>
+  <% end %>
+<% else %>
+  <%= l(:dashboard_settings_no_permission) -%>
+<% end %>

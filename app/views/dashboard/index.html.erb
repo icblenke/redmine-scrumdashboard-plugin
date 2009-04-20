@@ -1,0 +1,66 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'dashboard', :plugin => 'redmine_scrumdashboard' %>
+  <%= javascript_include_tag 'tooltip', :plugin => 'redmine_scrumdashboard' %>
+  <%= javascript_include_tag :defaults %>
+<% end %>
+
+<% if !@version.nil? && @version.project == @project %>
+
+  <% if User.current.allowed_to?(:edit_dashboard, @project, :global => true) %>
+    <div style='float: right'>
+      <%= link_to l(:label_settings), {:action => "settings", :id => @project.identifier, 
+        :version => @version.id}, :class => 'icon icon-admin' -%>
+    </div>
+  <% end %>
+
+  <h2><%= l(:label_dashboard) -%> - <%= @version.name -%></h2>
+
+  <% if @versions.length > 1 && !@dashboard.maintrackers.empty? %>
+    <div style='width:15%;float:left;margin-right:2px;'>
+      <fieldset><legend><%= l(:label_dashboard_choose_version) -%></legend>
+        <% form_tag do %>
+        <%= select_tag ( :version_id, options_from_collection_for_select(@versions, :id, :name, @version.id), 
+	  :onchange => "window.location = '?version_id=' + this.value" ) -%>
+        <% end %>
+      </fieldset>
+    </div>
+    <% if User.current.logged? %>
+      <div style='width:20%;float:left;margin-left:2px;' id='dashboard_filter'>
+        <% filter = params[:filter] ? params[:filter] : nil %>
+
+        <fieldset><legend><%= l(:label_dashboard_filter) -%></legend>
+          <%= l(:label_dashboard_show) -%>
+          <% form_remote_tag :update => 'dashboard', :url => params.merge({:action => :update_selection}) do %>
+            <%= select_tag ('filter', options_for_select([[l(:dashboard_select_all), 'all'],
+                            [l(:dashboard_select_mine), 'mine']],filter), :onchange => 'this.form.onsubmit()') %>
+          <% end %>
+        </fieldset>
+      </div>
+    <% end %>
+    <br/><br/><br/><br/>
+  <% end %>
+
+  <% if !@swimlines.empty? %>
+    <% dbwidth = @issuestatuses.length > 7 ? 100+(@issuestatuses.length-7)*14 : 100 %>
+    <div id="dashboard" style='width:<%= dbwidth -%>%'>
+    <%= render :partial => '/dashboard/dashboard' -%>
+    </div>
+
+  <% elsif @dashboard.maintrackers.empty? %>
+    <% if User.current.allowed_to?(:edit_dashboard, @project, :global => true) %>
+      <p class="nodata">
+        <%= link_to l(:dashboard_set_maintracker), { 
+          :action => "settings", :id => @project.identifier, :version => @version.id} -%>
+      </p>
+    <% else %>
+      <p class="nodata"><%= l(:label_no_data) %></p>
+    <% end %>
+  <% else %>
+    <p class="nodata"><%= l(:label_roadmap_no_issues) %></p>
+  <% end %>
+
+<% else %>
+  <h2><%= l(:label_dashboard) -%></h2>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% end %>
+</p>
