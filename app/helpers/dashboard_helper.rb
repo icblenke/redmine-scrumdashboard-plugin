@@ -115,8 +115,8 @@ module DashboardHelper
   end
 
   def administration_settings_tabs
-    tabs = [{:name => 'Tracker', :partial => 'tracker', :label => l(:label_tracker)},
-            {:name => 'Status', :partial => 'status', :label => l(:label_dashboard_status)},
+    tabs = [{:name => 'Tracker', :partial => 'tracker', :label => 'label_tracker'},
+            {:name => 'Status', :partial => 'status', :label => 'label_dashboard_status'},
             ]
   end
 

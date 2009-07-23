@@ -4,7 +4,7 @@ Redmine::Plugin.register :redmine_scrumdashboard do
   name 'Scrumdashboard plugin'
   author 'Brokenteam'
   description 'This is a plugin for adding a scrum dashboard to Redmine.'
-  version '1.0'
+  version '1.1'
 
   project_module :redmine_scrumdashboard do
     permission :dashboard, { :dashboard => :index }, :public => true
