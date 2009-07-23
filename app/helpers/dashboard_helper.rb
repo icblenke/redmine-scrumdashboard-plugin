@@ -31,7 +31,7 @@ module DashboardHelper
       if sort == status.id.to_s && reverse == 0 then url_options[:reverse] = 1
       else url_options[:reverse] = 0 end
       html += "'>#{link_to_remote(status, {:update => 'dashboard', :url => url_options}, 
-        {:href => 'javascript:void(0)', :title => l(:label_sort_by, status)})}"
+        {:href => 'javascript:void(0)', :title => l(:label_sort_by, "#{status}")})}"
       if sort == status.id.to_s
         if reverse == 0 then html += " #{image_tag('sort_desc.png')}"
         else html += " #{image_tag('sort_asc.png')}" end
