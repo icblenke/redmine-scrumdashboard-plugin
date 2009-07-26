@@ -4,23 +4,23 @@
   <%= javascript_include_tag :defaults %>
 <% end %>
 
+<% current_version = !@versions.nil? ? @version.id : nil %>
+<% if User.current.allowed_to?(:edit_dashboard, @project, :global => true) %>
+  <div style='float: right'>
+    <%= link_to l(:label_settings), {:action => "settings", :id => @project.identifier, 
+      :version => current_version}, :class => 'icon icon-admin' -%>
+  </div>
+<% end %>
+
 <% if !@version.nil? && @version.project == @project %>
-
-  <% if User.current.allowed_to?(:edit_dashboard, @project, :global => true) %>
-    <div style='float: right'>
-      <%= link_to l(:label_settings), {:action => "settings", :id => @project.identifier, 
-        :version => @version.id}, :class => 'icon icon-admin' -%>
-    </div>
-  <% end %>
-
   <h2><%= l(:label_dashboard) -%> - <%= @version.name -%></h2>
-
-  <% if @versions.length > 1 && !@dashboard.maintrackers.empty? %>
+  <% if @versions.length >= 1 && !@dashboard.maintrackers.empty? %>
+    <% disabled = @versions.length > 1 ? false : true %>
     <div style='width:15%;float:left;margin-right:2px;'>
       <fieldset><legend><%= l(:label_dashboard_choose_version) -%></legend>
         <% form_tag do %>
         <%= select_tag ( :version_id, options_from_collection_for_select(@versions, :id, :name, @version.id), 
-	  :onchange => "window.location = '?version_id=' + this.value" ) -%>
+	  :onchange => "window.location = '?version_id=' + this.value", :disabled => disabled, :style => "width:99%" ) -%>
         <% end %>
       </fieldset>
     </div>
@@ -55,8 +55,20 @@
     <% else %>
       <p class="nodata"><%= l(:label_no_data) %></p>
     <% end %>
+
   <% else %>
     <p class="nodata"><%= l(:label_roadmap_no_issues) %></p>
+  <% end %>
+
+<% elsif @dashboard.maintrackers.empty? %>
+  <h2><%= l(:label_dashboard) -%></h2>
+  <% if User.current.allowed_to?(:edit_dashboard, @project, :global => true) %>
+    <p class="nodata">
+      <%= link_to l(:dashboard_set_maintracker), { 
+        :action => "settings", :id => @project.identifier, :version => @version.id} -%>
+    </p>
+  <% else %>
+    <p class="nodata"><%= l(:label_no_data) %></p>
   <% end %>
 
 <% else %>
